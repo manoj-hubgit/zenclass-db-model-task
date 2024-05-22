@@ -1,0 +1,45 @@
+CREATE TABLE users(
+user_id INT PRIMARY KEY,
+user_name VARCHAR(36),
+user_email VARCHAR(36)
+);
+CREATE TABLE courses(
+course_id INT PRIMARY KEY,
+course_name VARCHAR(36),
+user_id INT,
+FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE mentors (
+    mentor_id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+CREATE TABLE assignments (
+    assignment_id INT PRIMARY KEY,
+    course_id INT,
+    title VARCHAR(100),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+CREATE TABLE submissions (
+    submission_id INT PRIMARY KEY,
+    assignment_id INT,
+    student_id INT,
+    FOREIGN KEY (assignment_id) REFERENCES assignments(assignment_id),
+    FOREIGN KEY (student_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE attendance (
+    attendance_id INT PRIMARY KEY,
+    course_id INT,
+    student_id INT,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id),
+    FOREIGN KEY (student_id) REFERENCES users(user_id)
+);
+
+describe users;
+describe courses;
+describe mentors;
+describe assignments;
+describe submissions;
+describe attendance;
